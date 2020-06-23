@@ -21,6 +21,44 @@ Output:
 ]
 */
 
+//Short and simple
+class Solution {
+public:
+    // f takes in a suffix subarray and returns the set of possible subsets
+    void f(vector<int> &nums, int startIdx, vector<int> currSet, vector<vector<int>> &res){
+        
+        // Base step
+        // Solution to the smallest subproblem
+        int n = nums.size();
+        if(startIdx == n){
+            res.push_back(currSet);
+            return;
+        }
+        
+        
+        // Recursive step
+        // Use the recurrence relation
+        // f(ar, 0) = f(ar, 1) U {ar[0] U f(ar, 1)}
+        
+        // No contribution
+        f(nums, startIdx+1, currSet, res);
+        
+        // Contribute this element
+        currSet.push_back(nums[startIdx]);
+        f(nums, startIdx+1, currSet, res);
+        
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> currSet;
+        
+        f(nums, 0, currSet, res);
+        
+        return res;
+    }
+};
+
+//Basic version
 class Solution {
 public:
     
