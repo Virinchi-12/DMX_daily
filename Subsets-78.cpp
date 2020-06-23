@@ -21,7 +21,7 @@ Output:
 ]
 */
 
-//Short and simple
+//Short and simple Decision: 1
 class Solution {
 public:
     // f takes in a suffix subarray and returns the set of possible subsets
@@ -57,6 +57,46 @@ public:
         return res;
     }
 };
+
+//Decision 2: ith element is the smallest element of the subset
+class Solution {
+public:
+    // f takes in a suffix subarray and returns the set of possible subsets
+    void f(vector<int> &nums, int startIdx, vector<int> currSet, vector<vector<int>> &res){
+        
+        // Base step
+        // Solution to the smallest subproblem
+        int n = nums.size();
+        if(startIdx == n){
+            res.push_back(currSet);
+            return;
+        }
+      
+//Recursive step
+//ith element is the smallest element of the subset
+      //No element is the smallest
+      f(nums,n,currSet,res);
+      
+      // ith element is the smallest
+      for(i=startIdx;i<n;i++){
+        currSet.push_back( nums[i]);
+        f(nums,i+1,currSet,res);
+        currSet.pop_back();
+      }
+        
+        
+      
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> currSet;
+        
+        f(nums, 0, currSet, res);
+        
+        return res;
+    }
+};
+
 
 //Basic version
 class Solution {
