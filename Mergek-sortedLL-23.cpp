@@ -1,4 +1,4 @@
-Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+/*Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 
 Example:
 
@@ -9,6 +9,53 @@ Input:
   2->6
 ]
 Output: 1->1->2->3->4->4->5->6
+*/
+
+//Simple solution using min-heaps
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+     
+          priority_queue<int,vector<int>,greater<int> > pq;
+        int n = lists.size();
+      
+        //Creating the min Heap
+        for(int i=0;i<n;i++){
+            ListNode *tmp = lists[i];
+            while(tmp){
+                pq.push(tmp->val);
+                tmp=tmp->next;
+            }
+        }
+        
+        if(pq.empty()) return NULL;
+        ListNode* res;
+        res =new ListNode(pq.top());
+        pq.pop();
+         ListNode* temp=res;
+        while(!pq.empty()){
+            ListNode* dummy=new ListNode(pq.top());
+            temp->next=dummy;
+            temp=temp->next;
+            pq.pop();
+        }
+        //cout<<pq.top();
+        return res;
+    }
+};
+
+//Classical Linked list solution
 
 class Solution {
 public:
