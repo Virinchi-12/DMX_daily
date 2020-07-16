@@ -35,17 +35,18 @@ The given tree is a binary search tree.
 
 class Solution {
 public:
-    //int runsum=0;
-    int gst(TreeNode* root,int runsum){
-        if(root==NULL) return runsum;
-        
-        int r=gst(root->right,runsum);
-        root->val+=r;
-        int l= gst(root->left,root->val);
-        return l;
+    void gst(TreeNode* root,int &runsum){
+        if(root==NULL)
+            return;
+        gst(root->right,runsum);
+        root->val+=runsum;
+        runsum=root->val;
+        gst(root->left,runsum);
+      
     }
     TreeNode* bstToGst(TreeNode* root) {
-        gst(root,0);
+        int summ=0;
+        gst(root,summ);
         return root;
     }
 };
